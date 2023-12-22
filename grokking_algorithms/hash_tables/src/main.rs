@@ -78,4 +78,27 @@ fn read_name(msg: &str) ->  Result<String,String> {
 }
 
 
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_check_voter() {
+        let mut pool = Pool::new(); // Replace with your actual constructor
+
+        let voter_name = "Alice".to_string();
+
+        // Scenario 1: Voter has not voted yet
+        assert_eq!(pool.check_voter(voter_name.clone()), Ok("let them vote! Alice".to_string()));
+
+        // Scenario 2: Voter tries to vote again
+        assert_eq!(pool.check_voter(voter_name.clone()), Err("Kick them out Alice".to_string()));
+
+        let another_voter = "Bob".to_string();
+
+        // Scenario 3: A different voter who has not voted yet
+        assert_eq!(pool.check_voter(another_voter), Ok("let them vote! Bob".to_string()));
+    }
+}
+
 
