@@ -58,13 +58,13 @@ impl <K: Hashable + std::cmp::PartialEq + Clone,V: Clone> MyHashTable<K,V>{
         
         let index = key.hash()% self.buckets.len();
         if  self.find(&key).is_some(){
-                self.insert(key, value)
-
-        }else {
-            
             if let Some(list) = self.buckets.get_mut(index) {
                 MyHashTable::update_element_from_linked_list(list, key, value);
             }  
+
+        }else {
+            self.insert(key, value)
+            
         }
    
     }
@@ -295,6 +295,24 @@ mod tests {
         let result = my_hash_table.remove(key_to_check.clone());
         assert_eq!(result, None);
 
+        assert_eq!(my_hash_table.count, 1);
+    }
+
+    #[test]
+    fn test_put() {
+        let mut my_hash_table = MyHashTable::new(2000);
+        let key = TestKey(1); // Asegúrate de que TestKey implemente Hashable y PartialEq
+        let value = "Hola mundo".to_string();
+
+        // Insertar un nuevo valor y verificar que se insertó correctamente
+        my_hash_table.put(key.clone(), value.clone());
+        assert_eq!(my_hash_table.find(&key), Some(&value));
+        assert_eq!(my_hash_table.count, 1);
+
+        // Actualizar el valor existente y verificar que se actualizó
+        let new_value = "Nuevo valor".to_string();
+        my_hash_table.put(key.clone(), new_value.clone());
+        assert_eq!(my_hash_table.find(&key), Some(&new_value));
         assert_eq!(my_hash_table.count, 1);
     }
     
