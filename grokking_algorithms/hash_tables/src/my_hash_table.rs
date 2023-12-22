@@ -41,8 +41,8 @@ impl <K: Hashable + std::cmp::PartialEq + Clone,V: Clone> MyHashTable<K,V>{
  */
     pub fn insert(&mut self, key: K, value: V){
 
-        let buffer_len = (self.buckets.len()  * 2 / 3) as f64;
-        if self.count + 1 >= buffer_len.ceil() as usize {
+        let load_factor = (self.buckets.len()  * 2 / 3) as f64; //  se hace un redimensionamiento cada vez que llenamos dos tercios de la hash table
+        if self.count + 1 >= load_factor.ceil() as usize {
             self.resize();
         }   
          let new_index = key.hash()% self.buckets.len();
@@ -162,7 +162,7 @@ impl <K: Hashable + std::cmp::PartialEq + Clone,V: Clone> MyHashTable<K,V>{
         elements
     }
     fn resize (&mut self){
-        let new_size = self.buckets.len() * 2;
+        let new_size = self.buckets.len() * 2; // duplicamos el tamaño en cada redimensionamiento 
         let mut new_buckets = MyHashTable::create_linked_list_vector(new_size);
         for elements in self.buckets.drain(..){
             for (key,value) in elements {
