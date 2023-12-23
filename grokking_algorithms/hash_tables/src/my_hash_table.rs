@@ -182,13 +182,7 @@ impl <K: Hashable + std::cmp::PartialEq + Clone,V: Clone> MyHashTable<K,V>{
 
 
 
-    /** 
-            let mut to_remove: Option<usize> = list
-            .iter()
-            .enumerate()
-            .find(|(i,(k,_))| *k == key)
-            .map(|(i,_)| i);
-            */
+   
 
 
 
