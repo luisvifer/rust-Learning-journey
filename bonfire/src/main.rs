@@ -1,5 +1,5 @@
 use raylib_ffi::{*, colors::WHITE};
-use std::{ffi::c_void, ops::RangeFrom};
+use std::ffi::c_void;
 use tinyrand::*;
 
 const WINDOWS_WIDTH:i32 = 600;
