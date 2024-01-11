@@ -25,6 +25,39 @@ fn main() {
         &f,
         dijkstra(&s, &graph, &f)
     );
+    let mut second_graph: DirectedGraph<String, i32> = DirectedGraph::new();
+    let s = String::from("S");
+    let a = String::from("A");
+    let b = String::from("B");
+    let c = String::from("C");
+    let d = String::from("D");
+    let f = String::from("F");
+
+    second_graph.add_node(&s);
+    second_graph.add_node(&a);
+    second_graph.add_node(&b);
+    second_graph.add_node(&c);
+    second_graph.add_node(&d);
+    second_graph.add_node(&f);
+
+    second_graph.add_edge((&s, &a, &5));
+    second_graph.add_edge((&s, &b, &2));
+    second_graph.add_edge((&a, &c, &4));
+    second_graph.add_edge((&a, &d, &2));
+    second_graph.add_edge((&b, &a, &8));
+    second_graph.add_edge((&b, &d, &7));
+    second_graph.add_edge((&c, &d, &6));
+    second_graph.add_edge((&c, &f, &3));
+    second_graph.add_edge((&d, &f, &1));
+
+    println!(
+        "Dijkstra's algorithm from {:?} to {:?} :{:?}",
+        &s,
+        &f,
+        dijkstra(&s, &second_graph, &f)
+    );
+
+
 }
 
 fn dijkstra(
