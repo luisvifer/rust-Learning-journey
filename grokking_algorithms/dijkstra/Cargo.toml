@@ -1,0 +1,17 @@
+[package]
+name = "dijkstra"
+version = "0.1.0"
+edition = "2021"
+
+
+
+[features]
+#graphs = []
+[dependencies]
+
+
+
+
+
+# First party crates
+graphs = {version= "0.1.0", path= "../graphs"} 

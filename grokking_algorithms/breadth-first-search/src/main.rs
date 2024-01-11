@@ -1,5 +1,4 @@
-mod graph;
-use graph::*;
+use graphs::graph::*;
 use std::fmt;
 use std::collections::{VecDeque, HashSet, HashMap};
 
