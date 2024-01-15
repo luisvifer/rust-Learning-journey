@@ -69,7 +69,7 @@ fn dijkstra(
     let mut parent: HashMap<String, String> = HashMap::new();
     let mut visited: HashSet<String> = HashSet::new();
 
-    let mut current_node = find_lowest_cost_node(&mut cost_list,&visited);
+    let mut current_node = find_lowest_cost_node(&cost_list,&visited);
     println!("{}",current_node.clone().unwrap_or(String::from("It's end!")));
     while current_node.is_some() && current_node != Some(destination.to_string()) {
         if let Some(node) = &current_node {
