@@ -26,31 +26,32 @@ impl PartialEq for MostPlayedArtist {
 
 
 
-impl MostPlayedArtist {
-    fn new() -> Self {
-        MostPlayedArtist { artist: String::from(""), play_count: 0 }
-    }
-}
+
 
 
 fn main() {
-    let mut artist_list = Vec::new();
-
-   
-    artist_list.push(MostPlayedArtist{
+    let mut artist_list = vec![
+        MostPlayedArtist{
         artist: String::from("Radiohead"),
         play_count:156
-    });
-    artist_list.push(MostPlayedArtist{
+    },
+    MostPlayedArtist{
         artist: String::from("Kishore kumar"),
         play_count:141
-    });
-    artist_list.push(MostPlayedArtist{
+    },
+    MostPlayedArtist{
         artist: String::from("The black keys"),
         play_count:35
-    });
-    artist_list.push(MostPlayedArtist{
+    },
+    MostPlayedArtist{
         artist: String::from("Neutral milk hotel"),
+        play_count:94
+    }
+    ];
+   
+   
+     artist_list.push(MostPlayedArtist{
+        artist: String::from("Nirvana"),
         play_count:94
     });
     artist_list.push(MostPlayedArtist{
@@ -66,13 +67,13 @@ fn main() {
         play_count:111
     });
     println!("Non Ordered list");
-    for i in 0..artist_list.len() { 
-        println!("{:?},",artist_list[i]); 
+    for artist in &artist_list { 
+        println!("{:?},",artist); 
     }
     let order_list = sort(&mut artist_list);
     println!("Ordered list");
-    for i in 0..order_list.len() { 
-        println!("{:?},",order_list[i]); 
+    for order in order_list { 
+        println!("{:?},",order); 
     }
 
 
@@ -86,6 +87,11 @@ fn main() {
             for  i in 0..list.len() {
                 if list[max_popular_index].play_count < list[i].play_count{
                     max_popular_index = i;
+                }
+                if list[max_popular_index].play_count == list[i].play_count && list[max_popular_index].artist.to_lowercase() > list[i].artist.to_lowercase(){
+                        max_popular_index = i;
+                    
+
                 }
             }
             artist_list.push(list.remove(max_popular_index));
