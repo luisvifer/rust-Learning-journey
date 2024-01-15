@@ -5,7 +5,7 @@ fn main() {
     let array = [2, 4, 6, 1];
     println!("Given this array {:?}", array);
     for i in 0..array.len() {
-        total = total + array[i];
+        total += array[i];
     }
     println!("Add up all the numbers and return the total  {}", total);
     println!(
@@ -39,21 +39,21 @@ fn main() {
 
 fn up_all_recursive(array: &[i32], total: i32) -> i32 {
     if array.is_empty() {
-        return total;
+        total
     } else {
         return up_all_recursive(array.split_at(1).1, total + array.split_at(1).0[0]);
     }
 }
 fn up_all_another_recursive(array: &[i32]) -> i32 {
     if array.is_empty() {
-        return 0;
+        0
     } else {
         return array.split_at(1).0[0] + up_all_another_recursive(array.split_at(1).1);
     }
 }
 fn count_recursive(array: &[i32]) -> i32 {
     if array.is_empty() {
-        return 0;
+        0
     } else {
         return 1 + count_recursive(array.split_at(1).1);
     }
@@ -61,7 +61,7 @@ fn count_recursive(array: &[i32]) -> i32 {
 
 fn maximum_recursive<T: PartialOrd + Copy>(array: &[T], mut maximun: T) -> T {
     if array.is_empty() {
-        return maximun;
+        maximun
     } else {
         let new_one = array.split_at(1).0[0];
         if new_one > maximun {
@@ -90,7 +90,7 @@ fn maximum_recursive_without_accomulator<T: PartialOrd + Copy>(array: &[T]) -> T
 
 fn quick_short<T: PartialOrd + Copy>(array: &[T]) -> Vec<T> {
     if array.len() < 2 {
-        return array.to_vec();
+        array.to_vec()
     } else {
         let pivot = array[0];
         let mut less = Vec::new();
