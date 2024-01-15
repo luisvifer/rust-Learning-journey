@@ -75,7 +75,7 @@ fn dijkstra(
         if let Some(node) = &current_node {
           
         // Borrow cost_list mutably here
-        if let Ok(neighbors) = graph.neighbours(&node) {
+        if let Ok(neighbors) = graph.neighbours(node) {
             for &(ref neigh, weight) in neighbors {
                 let new_cost = cost_list[node] + weight;
                 if new_cost < cost_list[*neigh] {
