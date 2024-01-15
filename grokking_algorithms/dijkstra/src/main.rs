@@ -61,7 +61,7 @@ fn main() {
 }
 
 fn dijkstra(
-    origin: &String,
+    origin: &str,
     graph: &DirectedGraph<String, i32>,
     destination: &String,
 ) -> Vec<(String, i32)> {
@@ -96,7 +96,7 @@ fn dijkstra(
 
     let mut path = Vec::new();
     let mut current = destination.clone();
-    let  end = origin.clone();
+    let  end = origin;
     while current != end {
         if let Some(parent_node) = parent.get(&current) {
             path.push((current.clone(), cost_list[&current]));
@@ -106,7 +106,7 @@ fn dijkstra(
             return Vec::new();
         }
     }
-    path.push((origin.clone(), cost_list[origin]));
+    path.push((origin.to_string(), cost_list[origin]));
     path.reverse(); // Reverse to get the path from origin to destination
 
     path
