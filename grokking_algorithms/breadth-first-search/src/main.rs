@@ -48,7 +48,7 @@ fn breadth_first_search(origin:&String ,graph:&DirectedGraph<String,i32>, destin
  
     while let Some(node) = queue.pop_front() {
         
-        if let Ok(neighbors) = graph.neighbours(&node) {
+        if let Ok(neighbors) = graph.neighbours(node) {
             for &(neigh, weight) in  neighbors {
                 if !visited.contains(neigh){
                     searched.push((neigh.clone(),*weight));
