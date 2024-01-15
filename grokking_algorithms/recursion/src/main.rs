@@ -5,7 +5,7 @@ use std::*;
 #[derive(Clone,Debug)]
 struct MyBox {
     key: bool,
-    nested_boxes: Vec<Box<MyBox>>,
+    nested_boxes: Vec<MyBox>,
    
 }
 
@@ -19,11 +19,11 @@ impl KeyCheck for MyBox {
     }
 }
 trait BoxManagement {
-    fn add_box(&mut self, box_to_add: Box<MyBox>);
+    fn add_box(&mut self, box_to_add: MyBox);
 }
 
 impl BoxManagement for MyBox {
-    fn add_box(&mut self, box_to_add: Box<MyBox>) {
+    fn add_box(&mut self, box_to_add:  MyBox) {
         self.nested_boxes.push(box_to_add);
     }
 }
@@ -66,7 +66,7 @@ fn create_random_boxes(max_depth: usize, current_depth: usize, key_placed: &mut 
         let num_boxes = rng.gen_range(0..=3);
         for _ in 0..num_boxes {
             let nested_box = create_random_boxes(max_depth, current_depth + 1, key_placed);
-            current_box.add_box(Box::new(nested_box));
+            current_box.add_box(nested_box);
         }
     }
 
@@ -75,23 +75,23 @@ fn create_random_boxes(max_depth: usize, current_depth: usize, key_placed: &mut 
 
 #[derive(Debug)]
 struct MyBoxIterator {
-    stack: Vec<Box<MyBox>>,
+    stack: Vec<MyBox>,
 }
 impl IntoIterator for MyBox {
-    type Item = Box<MyBox>;
+    type Item = MyBox;
     type IntoIter = MyBoxIterator;
 
     fn into_iter(self) -> Self::IntoIter {
-        MyBoxIterator { stack: vec![Box::new(self)] }
+        MyBoxIterator { stack: vec![self] }
     }
 }
 
 impl Iterator for MyBoxIterator {
-    type Item = Box<MyBox>;
+    type Item =MyBox;
 
     fn next(&mut self) -> Option<Self::Item> {
         self.stack.pop().map(|current_box| {
-            self.stack.extend(current_box.nested_boxes.iter().cloned());
+            self.stack.extend(current_box.nested_boxes.clone());
             current_box
         })
     }
@@ -116,7 +116,7 @@ fn main() {
     }
 
     let  structure = Box::new(random_box_structure.clone());
-    match  find_key_with_recursion(structure,1) {
+    match  find_key_with_recursion(*structure,1) {
         Ok(num) => println!("Se encontró la caja en la iteración {}", num),
         Err(num) => println!("No se encontró la caja en las {} iteración", num),
     }
@@ -133,7 +133,7 @@ fn main() {
 fn find_key_iter (into_iter: MyBoxIterator)-> Result<i32, i32> {
     let mut count:i32 =0;
     for element in into_iter{
-        count = count +1;
+        count += 1;
         if element.has_key(){
             return Ok(count);
         }
@@ -144,7 +144,7 @@ fn find_key_iter (into_iter: MyBoxIterator)-> Result<i32, i32> {
 
 }
 
-fn find_key_with_recursion( current_box :Box<MyBox>, mut count :i32) -> Result<i32,i32> {
+fn find_key_with_recursion( current_box :MyBox, mut count :i32) -> Result<i32,i32> {
     if current_box.has_key() {
        return  Ok(count);
     } 
@@ -156,7 +156,7 @@ fn find_key_with_recursion( current_box :Box<MyBox>, mut count :i32) -> Result<i
         }
     }
     
-    return Err(count);
+     Err(count)
     
 }
 
@@ -173,11 +173,11 @@ fn count_down_recursive (counter_down: i32) {
 fn factorial (number:i128)-> i128{
     if number == 0{
         print!("{}",1);
-        return 1;
+        1
     }
     else {
         print!("{} * ",number);
-        return number * factorial(number - 1);
+        number * factorial(number - 1)
     }
 
 }
