@@ -4,8 +4,8 @@ fn main() {
     let mut total: i32 = 0;
     let array = [2, 4, 6, 1];
     println!("Given this array {:?}", array);
-    for i in 0..array.len() {
-        total += array[i];
+    for item in array {
+        total += item;
     }
     println!("Add up all the numbers and return the total  {}", total);
     println!(
@@ -95,11 +95,11 @@ fn quick_short<T: PartialOrd + Copy>(array: &[T]) -> Vec<T> {
         let pivot = array[0];
         let mut less = Vec::new();
         let mut greater = Vec::new();
-        for i in 1..array.len() {
-            if array[i] <= pivot {
-                less.push(array[i]);
+        for item in array.iter().skip(1) {
+            if *item <= pivot {
+                less.push(*item);
             } else {
-                greater.push(array[i]);
+                greater.push(*item);
             }
         }
         let mut sorted: Vec<T> = quick_short(&less);
