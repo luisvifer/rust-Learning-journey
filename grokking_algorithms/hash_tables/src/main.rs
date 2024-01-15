@@ -41,6 +41,12 @@ impl Voted for Pool {
     
 }
 
+impl Default for Pool {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl Pool {
     pub fn new() -> Pool{
         Pool {

@@ -248,7 +248,7 @@ mod tests {
         let value: String = String::from("Hola mundo");
         my_hash_table.insert(key, value);
         assert_eq!(my_hash_table.count, 1);
-        assert_eq!(inital_size < my_hash_table.buckets.capacity(), true);
+        assert!(inital_size < my_hash_table.buckets.capacity());
     }
 
     #[test]
