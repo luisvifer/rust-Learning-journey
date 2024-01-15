@@ -115,7 +115,7 @@ fn dijkstra(
 
 
 fn init_cost_table(
-    init: &String,
+    init: &str,
     graph: &DirectedGraph<String, i32>,
 ) -> HashMap<String, i32> {
     let mut cost: HashMap<String, i32> = HashMap::new();
