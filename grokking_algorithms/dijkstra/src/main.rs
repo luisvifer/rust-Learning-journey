@@ -63,7 +63,7 @@ fn main() {
 fn dijkstra(
     origin: &str,
     graph: &DirectedGraph<String, i32>,
-    destination: &String,
+    destination: &str,
 ) -> Vec<(String, i32)> {
     let mut cost_list  = init_cost_table(origin, graph);
     let mut parent: HashMap<String, String> = HashMap::new();
@@ -71,7 +71,7 @@ fn dijkstra(
 
     let mut current_node = find_lowest_cost_node(&mut cost_list,&visited);
     println!("{}",current_node.clone().unwrap_or(String::from("It's end!")));
-    while current_node.is_some() && current_node != Some(destination.clone()) {
+    while current_node.is_some() && current_node != Some(destination.to_string()) {
         if let Some(node) = &current_node {
           
         // Borrow cost_list mutably here
@@ -95,7 +95,7 @@ fn dijkstra(
     
 
     let mut path = Vec::new();
-    let mut current = destination.clone();
+    let mut current = destination.to_string();
     let  end = origin;
     while current != end {
         if let Some(parent_node) = parent.get(&current) {
