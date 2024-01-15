@@ -53,7 +53,7 @@ fn leer_numero(msg: &str) -> Result<i32, String> {
 fn binary_search_recursive (data:&Vec<i32>, number: i32, low : usize, high: usize) -> Result<usize,String>{
     
     if low > high {
-        return Err(format!("No se ha encontrado {}", number.to_string()));
+        return Err(format!("No se ha encontrado {}", number));
     }
 
     //let middle: usize = (low +  high) / 2; // no evita el desbordamiento de la pila
@@ -64,7 +64,7 @@ fn binary_search_recursive (data:&Vec<i32>, number: i32, low : usize, high: usiz
         Some(&guess) if guess < number => binary_search_recursive(data, number, middle + 1, high),
         Some(&guess) if guess > number => binary_search_recursive(data, number, low, middle - 1),
         Some(_) => unreachable!(), // Esta rama no debería alcanzarse nunca
-        None => Err(format!("Índice fuera de rango")), // Esto podría suceder si el índice medio calculado está fuera de rango
+        None => Err("Índice fuera de rango".to_string()), // Esto podría suceder si el índice medio calculado está fuera de rango
     }
 }
 
@@ -79,9 +79,9 @@ fn binary_search (data:&Vec<i32>, number:i32) -> Result<usize,String>{
             Some(&guess) if guess < number =>  low = middle + 1,
             Some(&guess) if guess > number => high = middle - 1,
             Some(_) => unreachable!(),
-            None => return Err(format!("Índice fuera de rango")),
+            None => return Err("Índice fuera de rango".to_string()),
         }
     }
-     Err(format!("No se ha encontrado {}", number.to_string()))
+     Err(format!("No se ha encontrado {}", number))
 
 }
